@@ -15,7 +15,7 @@ public class ViveControllerClickEventSample : MonoBehaviour {
     public GameObject targetToInstanciate;
 
     public Color pointerColor;
-    public float pointerThickness = 0.002f;
+    public float pointerThickness = 0.1f;
     public AxisType pointerFacingAxis = AxisType.ZAxis;
     public float pointerLength = 100f;
     public bool showPointerTip = true;
@@ -69,28 +69,19 @@ public class ViveControllerClickEventSample : MonoBehaviour {
         }
 
         // check if the trigger button is down or up
-        if (controller.GetPressDown(triggerButton)) {
-            Debug.Log("tigger button clicked");
+        //if (controller.GetPressDown(triggerButton)) {
+            //Debug.Log("tigger button clicked");
 
             // Do a raycast to see if a target has been hit
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit)) {
-                Debug.Log("There is something in front of the controller!");
-
-                // Destroy the object hit by the raycast and create a new one near it
-                Transform newPosition = getNewPos(hit.transform);
-           
-                if (hit.transform.gameObject.tag == "Target") {
+                if (System.String.Equals(hit.transform.gameObject.tag, "Target")) {
+                    // Destroy the object hit by the raycast and create a new one near it
+                    Transform newPosition = getNewPos(hit.transform);
                     Destroy(hit.transform.gameObject);
-                    if (targetToInstanciate != null) {
-                        Instantiate(targetToInstanciate, newPosition.position, newPosition.rotation);
-                        Debug.Log("Target instanciated!");
-                    }
                 }
-                    
-                
             }
-        }
+        //}
     }
 
     private Transform getNewPos(Transform transform) {
