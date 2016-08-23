@@ -47,6 +47,10 @@ public class ViveControllerClickEventSample : MonoBehaviour {
     private float HeadsetCameraRigInitialYPosition;
     private Vector3 TeleportLocation;
 
+	private float currentDelta;
+	private float SpawnTickTime = 1.0f;
+
+	public GameObject SpawnableItem;
 
     public enum AxisType
     {
@@ -57,7 +61,7 @@ public class ViveControllerClickEventSample : MonoBehaviour {
     // Use this for initialization
     void Start () {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
-
+		currentDelta = 0.0f;
         InitPointer();
     }
 	
@@ -69,19 +73,23 @@ public class ViveControllerClickEventSample : MonoBehaviour {
         }
 
         // check if the trigger button is down or up
-        //if (controller.GetPressDown(triggerButton)) {
-            //Debug.Log("tigger button clicked");
+		if (controller.GetPressDown (triggerButton)) {
+			currentDelta += Time.deltaTime;
 
-            // Do a raycast to see if a target has been hit
-            RaycastHit hit;
+			if (currentDelta >= SpawnTickTime && SpawnableItem != null) {
+				GameObject newItem = (GameObject)Instantiate (SpawnableItem, transform.position, transform.rotation);
+				currentDelta = 0.0f;
+				// Do a raycast to see if a target has been hit
+				/*RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit)) {
                 if (System.String.Equals(hit.transform.gameObject.tag, "Target")) {
                     // Destroy the object hit by the raycast and create a new one near it
                     Transform newPosition = getNewPos(hit.transform);
                     Destroy(hit.transform.gameObject);
                 }
-            }
-        //}
+            }*/
+			}
+		}
     }
 
     private Transform getNewPos(Transform transform) {
