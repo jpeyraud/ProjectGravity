@@ -71,10 +71,10 @@ public class ViveControllerClickEventSample : MonoBehaviour {
             Debug.Log("Controller not initialized");
             return;
         }
-
+		currentDelta += Time.deltaTime;
         // check if the trigger button is down or up
 		if (controller.GetPressDown (triggerButton)) {
-			currentDelta += Time.deltaTime;
+			
 
 			if (currentDelta >= SpawnTickTime && SpawnableItem != null) {
 				GameObject newItem = (GameObject)Instantiate (SpawnableItem, transform.position, transform.rotation);
