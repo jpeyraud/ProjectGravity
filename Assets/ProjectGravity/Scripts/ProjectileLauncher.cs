@@ -26,7 +26,9 @@ public class ProjectileLauncher : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire1")) {
 			if (currentDelta >= SpawnTickTime && SpawnableItem != null) {
 				GameObject newItem = (GameObject)Instantiate (SpawnableItem, transform.position, transform.rotation);
-				newItem.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward, ForceMode.Impulse);
+				Vector3 force = gameObject.transform.forward;
+				force.Scale (new Vector3 (10.0f, 10.0f, 10.0f));
+				newItem.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
 				currentDelta = 0.0f;
 			}
 		}
