@@ -5,6 +5,7 @@ public class ProjectileLauncher : MonoBehaviour {
 
 	private float currentDelta;
 	private float SpawnTickTime = 1.0f;
+	public float powerFactor;
 
 	public GameObject SpawnableItem;
 
@@ -27,7 +28,7 @@ public class ProjectileLauncher : MonoBehaviour {
 			if (currentDelta >= SpawnTickTime && SpawnableItem != null) {
 				GameObject newItem = (GameObject)Instantiate (SpawnableItem, transform.position, transform.rotation);
 				Vector3 force = gameObject.transform.forward;
-				force.Scale (new Vector3 (10.0f, 10.0f, 10.0f));
+				force.Scale (new Vector3 (powerFactor, powerFactor, powerFactor));
 				newItem.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
 				currentDelta = 0.0f;
 			}

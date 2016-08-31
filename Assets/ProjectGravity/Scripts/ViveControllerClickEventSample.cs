@@ -51,6 +51,7 @@ public class ViveControllerClickEventSample : MonoBehaviour {
 	private float SpawnTickTime = 1.0f;
 
 	public GameObject SpawnableItem;
+	public float powerFactor;
 
     public enum AxisType
     {
@@ -79,7 +80,7 @@ public class ViveControllerClickEventSample : MonoBehaviour {
 			if (currentDelta >= SpawnTickTime && SpawnableItem != null) {
 				GameObject newItem = (GameObject)Instantiate (SpawnableItem, transform.position, transform.rotation);
 				Vector3 force = gameObject.transform.forward;
-				force.Scale (new Vector3 (10.0f, 10.0f, 10.0f));
+				force.Scale (new Vector3 (powerFactor, powerFactor, powerFactor));
 				newItem.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
 				currentDelta = 0.0f;
 				// Do a raycast to see if a target has been hit
