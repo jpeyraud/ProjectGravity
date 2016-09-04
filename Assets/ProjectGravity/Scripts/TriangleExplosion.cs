@@ -56,7 +56,6 @@ public class TriangleExplosion : MonoBehaviour {
 				mesh.uv = newUvs;
 
 				mesh.triangles = new int[] { 0, 1, 2, 2, 1, 0 } ;
-				Debug.Log ("explosion");
 				GameObject GO = new GameObject("Triangle " + (i / 3));
 				GO.layer = LayerMask.NameToLayer("Particle");
 				GO.transform.position = transform.position;
