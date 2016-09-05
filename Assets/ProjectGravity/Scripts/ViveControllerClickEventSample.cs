@@ -78,6 +78,8 @@ public class ViveControllerClickEventSample : MonoBehaviour {
 			
 
 			if (currentDelta >= SpawnTickTime && SpawnableItem != null) {
+				if (powerFactor == 0)
+					powerFactor = 10.0f;
 				GameObject newItem = (GameObject)Instantiate (SpawnableItem, transform.position, transform.rotation);
 				Vector3 force = gameObject.transform.forward;
 				force.Scale (new Vector3 (powerFactor, powerFactor, powerFactor));
