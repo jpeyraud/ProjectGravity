@@ -13,7 +13,11 @@ public class MouseKeyboardControl : MonoBehaviour {
 		Vector3 newPos = gameObject.transform.position;
 		gameObject.transform.Translate(new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Mouse ScrollWheel"),Input.GetAxis("Vertical")));
 		if (Input.GetMouseButton (1)) {
-			gameObject.transform.Rotate (new Vector3 (-Input.GetAxis ("Mouse Y"), Input.GetAxis ("Mouse X"), 0.0f));
+			Vector3 rotation = gameObject.transform.eulerAngles;
+			rotation.x += -Input.GetAxis ("Mouse Y");
+			rotation.y += Input.GetAxis ("Mouse X");
+			rotation.z = 0.0f;
+			gameObject.transform.eulerAngles = rotation;
 		}
 	}
 }
