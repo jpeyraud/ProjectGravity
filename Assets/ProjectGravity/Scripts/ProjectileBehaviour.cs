@@ -5,7 +5,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Destroy (gameObject,5.0f);
-		transform.Rotate(new Vector3(90.0f,90.0f,90.0f));	
+		transform.Rotate (new Vector3 (90.0f, 90.0f, 90.0f));
 	}
 
 	// Update is called once per frame
@@ -16,7 +16,9 @@ public class ProjectileBehaviour : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider) {
 		if (collider.gameObject.CompareTag("Target")){
-			Destroy (collider.gameObject);
+			collider.gameObject.AddComponent<TriangleExplosion>();
+			StartCoroutine(collider.gameObject.GetComponent<TriangleExplosion>().SplitMesh(true));
+			collider.gameObject.GetComponent<Rigidbody> ().AddExplosionForce (10.0f, collider.gameObject.transform.position, 5.0f);
 			Destroy (gameObject);
 		}
 	}
